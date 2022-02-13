@@ -159,6 +159,7 @@ class _AllPageState extends State<AllPage> {
                                   SizedBox(
                                     height: 10,
                                   ),
+                                  
                                   Row(
                                     children: [
                                       provider.items[index].deliveryMethod!

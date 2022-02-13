@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SwitchOnAnimal extends StatefulWidget {
+
+Function(bool) onChanged;
    bool switchValue;
     Color textColor;
     String textValue;
     String animalName;
+  
    
-   SwitchOnAnimal(this.switchValue, this.textColor, this.textValue, this.animalName, { Key? key }) : super(key: key);
+   SwitchOnAnimal(this.switchValue, this.textColor, this.textValue, this.animalName, this.onChanged, { Key? key }) : super(key: key);
 
   @override
   _SwitchOnAnimalState createState() => _SwitchOnAnimalState();
@@ -59,8 +62,7 @@ class _SwitchOnAnimalState extends State<SwitchOnAnimal> {
                   }
                   
                 });
-
-               
+                widget.onChanged(value);               
               }),
         ),
         Text(

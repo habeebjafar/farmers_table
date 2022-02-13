@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                              "01 Congress Ave, TX78701, USA",
+                              "1015 park st Sterling, co 80751",
                               style: TextStyle(color: Colors.black87, fontSize: 16),
                             ),
                               IconButton(

@@ -126,6 +126,7 @@ bool? noDataFound;
    
     //double distanceInMeters = Geolocator.distanceBetween(position.latitude, position.longitude, farmLat, farmLog);
     // double userDistanceInMiles = distanceInMeters/1609.344;
+    items.clear();
     farmersStocksList.clear();
     beefList.clear();
     chickenList.clear();
@@ -304,7 +305,7 @@ bool? noDataFound;
   }
 
   int _getDistance(double farmLat, double farmLog){
-    double distanceInMeters = Geolocator.distanceBetween(6.377515, 5.6964938, farmLat, farmLog);
+    double distanceInMeters = Geolocator.distanceBetween(40.6180343, -103.2277387, farmLat, farmLog);
      double userDistanceInMiles = distanceInMeters/1609.344;
     return userDistanceInMiles.toInt();
   }

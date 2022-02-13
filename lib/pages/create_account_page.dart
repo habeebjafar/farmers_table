@@ -76,7 +76,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   }
 
   void _handleTapTerms() async{
-_launchInBrowser("https://www.google.com");
+_launchInBrowser("https://habeebjafar.github.io/cattle_privacy_policy.html");
   }
 
   Future<void> _launchInBrowser(String url) async {

@@ -4,9 +4,10 @@ import 'package:provider/provider.dart';
 
 class MarketSellerWidget extends StatefulWidget {
 
+  Function(bool) onChanged;
   bool marketSellerValue;
   Color marketSellerColor;
-   MarketSellerWidget(this.marketSellerValue, this.marketSellerColor, { Key? key }) : super(key: key);
+   MarketSellerWidget(this.marketSellerValue, this.marketSellerColor, this.onChanged, { Key? key }) : super(key: key);
 
   @override
   _MarketSellerWidgetState createState() => _MarketSellerWidgetState();
@@ -43,6 +44,7 @@ class _MarketSellerWidgetState extends State<MarketSellerWidget> {
 
                          provider.marketSellerValue = this.widget.marketSellerValue;
                       });
+                      widget.onChanged(value);
                     }),
                 Text(
                   "Become a market place seller",

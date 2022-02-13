@@ -110,11 +110,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.pop(context);
                       Share.share(''' 
 
-                    A powerful app for livestock farming. Track cattle, events, milk production and revenue. \n\n
+                    Farmers table is a local farm finder that helps farmers upload their products and produce . It allows users to track the nearest farm store to them. \n\n
 
 Click on the Link below to download it from App Store. \n\n
 
-https://apps.apple.com/us/app/track-my-brand/id1597499479
+https://apps.apple.com/us/app/farmers-table/id1608706573
                    
                     
                     ''', 
@@ -141,6 +141,7 @@ https://apps.apple.com/us/app/track-my-brand/id1597499479
                         //pref.getBool("loggedIn");
                         pref.remove("loggedIn");
                         pref.remove("loginDetails");
+                        pref.remove("farmName");
                         pref.clear();
                         Navigator.pop(context);
                         Navigator.pushAndRemoveUntil(

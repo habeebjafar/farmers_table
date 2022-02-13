@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:farmerstable/bloc/farm_provider.dart';
 import 'package:farmerstable/pages/home_page.dart';
 import 'package:farmerstable/widgets/checkDeliveryMethod.dart';
@@ -178,325 +176,322 @@ class _AddFarmPageState extends State<AddFarmPage> {
                   ),
                   SizedBox(height: 13),
 
+                  Form(
+                      key: globalKey,
+                      child: Column(
+                        children: [
+                          TextFormField(
+                            controller: farmNameController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            validator: (input) => input!.length < 1
+                                ? "Farm name must not be empty"
+                                : null,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "Farm name",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
 
-                 Form(
-                    key: globalKey,
-                   child: Column(
-                     children: [
-                        TextFormField(
-                    controller: farmNameController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    validator: (input) => input!.length < 1
-                        ? "Farm name must not be empty"
-                        : null,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "Farm name",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: fullAddressController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            validator: (input) => input!.length < 15
+                                ? "Please enter a valid address"
+                                : null,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "Full address",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
 
-                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: fullAddressController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    validator: (input) => input!.length < 15
-                        ? "Please enter a valid address"
-                        : null,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "Full address",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: firstNameController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            validator: (input) => input!.length < 1
+                                ? "Name must not be empty"
+                                : null,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "First name",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: lastNameController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            validator: (input) => input!.length < 1
+                                ? "Name must not be empty"
+                                : null,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "Last name",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: firstNameController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    validator: (input) =>
-                        input!.length < 1 ? "Name must not be empty" : null,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "First name",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: lastNameController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    validator: (input) =>
-                        input!.length < 1 ? "Name must not be empty" : null,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "Last name",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: phoneNumberController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            keyboardType: TextInputType.number,
+                            validator: (input) => input!.length < 1
+                                ? "Phone number must not be empty"
+                                : null,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "Phone",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: emailController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            keyboardType: TextInputType.emailAddress,
+                            validator: (input) => !input!.contains('@')
+                                ? "Email Id should be valid"
+                                : null,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "Email",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
-                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: phoneNumberController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    keyboardType: TextInputType.number,
-                    validator: (input) => input!.length < 1
-                        ? "Phone number must not be empty"
-                        : null,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "Phone",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (input) => !input!.contains('@')
-                        ? "Email Id should be valid"
-                        : null,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "Email",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.red,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          TextFormField(
+                            controller: websiteController,
+                            cursorColor: Colors.green,
+                            cursorHeight: 25,
+                            cursorWidth: 3,
+                            decoration: InputDecoration(
+                              contentPadding:
+                                  EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+                              //hintText: "Cattle name. *",
+                              hintText: "Website (optional)",
+                              hintStyle: TextStyle(
+                                color: Colors.black26,
+                              ),
 
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                         color: Colors.red,
-                        ),
-                      ),
-                      
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: websiteController,
-                    cursorColor: Colors.green,
-                    cursorHeight: 25,
-                    cursorWidth: 3,
-                    decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
-                      //hintText: "Cattle name. *",
-                      hintText: "Website (optional)",
-                      hintStyle: TextStyle(
-                        color: Colors.black26,
-                      ),
-
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.black26,
-                        ),
-                      ),
-                    ),
-                  ),
-                     ],
-                   )
-                   ),
-
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.black26,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
 
                   SizedBox(
                     height: 15,
@@ -512,11 +507,18 @@ class _AddFarmPageState extends State<AddFarmPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CheckDeliveryMethod(
-                              pickUpValue, pickUpColor, pickUpText, "Pickup"),
+                              pickUpValue, pickUpColor, pickUpText, "Pickup",
+                              (bool value) {
+                            pickUpValue = value;
+                          }),
                           CheckDeliveryMethod(deliveryValue, deliveryColor,
-                              deliveryText, "Delivery"),
+                              deliveryText, "Delivery", (bool value) {
+                            deliveryValue = value;
+                          }),
                           CheckDeliveryMethod(shippedValue, shippedColor,
-                              shippedText, "Shipped"),
+                              shippedText, "Shipped", (bool value) {
+                            shippedValue = value;
+                          }),
                         ],
                       )),
                   Container(
@@ -527,68 +529,216 @@ class _AddFarmPageState extends State<AddFarmPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SwitchOnAnimal(
-                                beefValue, beefTextColor, beefText, "Beef"),
-                            SwitchOnAnimal(chickenValue, chickenTextColor,
-                                chickenText, "Chicken"),
+                              beefValue,
+                              beefTextColor,
+                              beefText,
+                              "Beef",
+                              (bool value) {
+                                setState(() {
+                                  beefValue = value;
+                                });
+                              },
+                            ),
                             SwitchOnAnimal(
-                                eggValue, eggTextColor, eggText, "Eggs"),
+                              chickenValue,
+                              chickenTextColor,
+                              chickenText,
+                              "Chicken",
+                              (bool value) {
+                                setState(() {
+                                  chickenValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              eggValue,
+                              eggTextColor,
+                              eggText,
+                              "Eggs",
+                              (bool value) {
+                                setState(() {
+                                  eggValue = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SwitchOnAnimal(
-                                dairyValue, dairyTextColor, dairyText, "Dairy"),
+                              dairyValue,
+                              dairyTextColor,
+                              dairyText,
+                              "Dairy",
+                              (bool value) {
+                                setState(() {
+                                  dairyValue = value;
+                                });
+                              },
+                            ),
                             SwitchOnAnimal(
-                                lambValue, lambTextColor, lambText, "Lamb"),
+                              lambValue,
+                              lambTextColor,
+                              lambText,
+                              "Lamb",
+                              (bool value) {
+                                setState(() {
+                                  lambValue = value;
+                                });
+                              },
+                            ),
                             SwitchOnAnimal(
-                                elkValue, elkTextColor, elkText, "Elk"),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SwitchOnAnimal(rabbitValue, rabbitTextColor,
-                                rabbitText, "Rabbit"),
-                            SwitchOnAnimal(
-                                duckValue, duckTextColor, duckText, "Duck"),
-                            SwitchOnAnimal(
-                                goatValue, goatTextColor, goatText, "Goat"),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SwitchOnAnimal(
-                                gooseValue, gooseTextColor, gooseText, "Goose"),
-                            SwitchOnAnimal(
-                                bisonValue, bisonTextColor, bisonText, "Bison"),
-                            SwitchOnAnimal(turkeyValue, turkeyTextColor,
-                                turkeyText, "Turkey"),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SwitchOnAnimal(seafoodValue, seafoodTextColor,
-                                seafoodText, "Seafood"),
-                            SwitchOnAnimal(vegetablesValue, vegetablesTextColor,
-                                vegetablesText, "Vegetables"),
-                            SwitchOnAnimal(fruitsValue, fruitsTextColor,
-                                fruitsText, "Fruits"),
+                              elkValue,
+                              elkTextColor,
+                              elkText,
+                              "Elk",
+                              (bool value) {
+                                setState(() {
+                                  elkValue = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SwitchOnAnimal(
-                                honeyValue, honeyTextColor, honeyText, "Honey"),
+                              rabbitValue,
+                              rabbitTextColor,
+                              rabbitText,
+                              "Rabbit",
+                              (bool value) {
+                                setState(() {
+                                  rabbitValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              duckValue,
+                              duckTextColor,
+                              duckText,
+                              "Duck",
+                              (bool value) {
+                                setState(() {
+                                  duckValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              goatValue,
+                              goatTextColor,
+                              goatText,
+                              "Goat",
+                              (bool value) {
+                                setState(() {
+                                  goatValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SwitchOnAnimal(
+                              gooseValue,
+                              gooseTextColor,
+                              gooseText,
+                              "Goose",
+                              (bool value) {
+                                setState(() {
+                                  gooseValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              bisonValue,
+                              bisonTextColor,
+                              bisonText,
+                              "Bison",
+                              (bool value) {
+                                setState(() {
+                                  bisonValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              turkeyValue,
+                              turkeyTextColor,
+                              turkeyText,
+                              "Turkey",
+                              (bool value) {
+                                setState(() {
+                                  turkeyValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SwitchOnAnimal(
+                              seafoodValue,
+                              seafoodTextColor,
+                              seafoodText,
+                              "Seafood",
+                              (bool value) {
+                                setState(() {
+                                  seafoodValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              vegetablesValue,
+                              vegetablesTextColor,
+                              vegetablesText,
+                              "Vegetables",
+                              (bool value) {
+                                setState(() {
+                                  vegetablesValue = value;
+                                });
+                              },
+                            ),
+                            SwitchOnAnimal(
+                              fruitsValue,
+                              fruitsTextColor,
+                              fruitsText,
+                              "Fruits",
+                              (bool value) {
+                                setState(() {
+                                  fruitsValue = value;
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            SwitchOnAnimal(
+                              honeyValue,
+                              honeyTextColor,
+                              honeyText,
+                              "Honey",
+                              (bool value) {
+                                setState(() {
+                                  honeyValue = value;
+                                });
+                              },
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  MarketSellerWidget(marketSellerValue, marketSellerColor)
+                  MarketSellerWidget(marketSellerValue, marketSellerColor,
+                      (bool value) {
+                    marketSellerValue = value;
+                  }),
+
                   // TextButton(
                   //   style: ButtonStyle(
                   //     backgroundColor:
@@ -634,10 +784,10 @@ class _AddFarmPageState extends State<AddFarmPage> {
                       fontWeight: FontWeight.bold),
                 ),
                 onPressed: () {
-                  var provider =
-                      Provider.of<FarmProvider>(context, listen: false);
-                  print(provider.animals);
-                  print(provider.deliveryMethods);
+                  // var provider =
+                  //     Provider.of<FarmProvider>(context, listen: false);
+                  // print(provider.animals);
+                  // print(provider.deliveryMethods);
                   // print(beefText);
                 }),
           ),
@@ -658,54 +808,59 @@ class _AddFarmPageState extends State<AddFarmPage> {
                   ),
                 ),
                 onPressed: () async {
-                 
 
-                  if(validateAndSave()){
-
-                     setState(() {
-                    isloading = true;
-                  });
-
-                  var url = websiteController.text;
-
-                  if ((!url.contains("https://") || !url.contains("http://")) &&
-                      url.contains("www")) {
-                    url = "http://" + url;
-                  } else if ((!url.contains("https://") ||
-                          !url.contains("http://")) &&
-                      !url.contains("www")) {
-                    url = "http://www." + url;
-                  } else if(url.isEmpty){
-                    url = "";
+                  SharedPreferences pref = await SharedPreferences.getInstance();
+                  var farmName = pref.getString("farmName");
+                  if(farmName != null){
+                     _displayAlert(farmName);
+                    return;
 
                   }
 
 
-                       bool isUploaded = await provider.saveFarmersStocks(
-                      farmNameController.text,
-                      fullAddressController.text,
-                      firstNameController.text,
-                      lastNameController.text,
-                      phoneNumberController.text,
-                      emailController.text,
-                      url
-                      );
-
-                  if (isUploaded == true) {
-                    _bottomSheet();
-
+                  if (validateAndSave()) {
                     setState(() {
-                      isloading = false;
+                      isloading = true;
                     });
 
-                    //print("successfully added another farm");
-                    //_bottomSheet(context);
+                    var url = websiteController.text;
+
+                    if ((!url.contains("https://") ||
+                            !url.contains("http://")) &&
+                        url.contains("www")) {
+                      url = "http://" + url;
+                    } else if ((!url.contains("https://") ||
+                            !url.contains("http://")) &&
+                        !url.contains("www")) {
+                      url = "http://www." + url;
+                    } else if (url.isEmpty) {
+                      url = "";
+                    }
+
+                    bool isUploaded = await provider.saveFarmersStocks(
+                        farmNameController.text,
+                        fullAddressController.text,
+                        firstNameController.text,
+                        lastNameController.text,
+                        phoneNumberController.text,
+                        emailController.text,
+                        url);
+
+                    if (isUploaded == true) {
+                      SharedPreferences pref =
+                          await SharedPreferences.getInstance();
+                       pref.setString("farmName", farmNameController.text);
+
+                      _bottomSheet();
+
+                      setState(() {
+                        isloading = false;
+                      });
+
+                      //print("successfully added another farm");
+                      //_bottomSheet(context);
+                    }
                   }
-
-
-                  }
-
-               
 
                   // print(provider.animals);
                   //print(provider.deliveryMethods);
@@ -844,5 +999,29 @@ class _AddFarmPageState extends State<AddFarmPage> {
                 ],
               )));
         });
+  }
+
+  _displayAlert(farmName){
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return AlertDialog(
+
+          title: Text("Alert"),
+          content: Text("You're already the owner of $farmName. Please email us for any issue"),
+          actions: [
+            TextButton(
+              onPressed: (){
+                Navigator.pop(context);
+              }, 
+              child: Text("OK")
+              )
+          ],
+
+        );
+      }
+      );
+
   }
 }

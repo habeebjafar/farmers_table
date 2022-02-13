@@ -4,13 +4,14 @@ import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
 class CheckDeliveryMethod extends StatefulWidget {
+  Function(bool) onChanged;
   bool pickUpValue;
   Color pickUpColor;
   String pickUpText;
   String deliveryName;
 
   CheckDeliveryMethod(
-      this.pickUpValue, this.pickUpColor, this.pickUpText, this.deliveryName,
+      this.pickUpValue, this.pickUpColor, this.pickUpText, this.deliveryName, this.onChanged,
       {Key? key})
       : super(key: key);
 
@@ -59,6 +60,8 @@ class _CheckDeliveryMethodState extends State<CheckDeliveryMethod> {
                     provider.deliveryMethods.join(', ');
                   }
                 });
+
+                widget.onChanged(value!);
               }),
         ),
         Text(
