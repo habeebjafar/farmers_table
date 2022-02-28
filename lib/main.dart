@@ -4,7 +4,6 @@ import 'package:farmerstable/bloc/farm_provider.dart';
 import 'package:farmerstable/bloc/user_provider.dart';
 import 'package:farmerstable/models/bank_model.dart';
 import 'package:farmerstable/pages/home_page.dart';
-import 'package:farmerstable/pages/test_page.dart';
 import 'package:farmerstable/services/bank_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

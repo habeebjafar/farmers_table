@@ -89,7 +89,11 @@ class _OthersPageState extends State<OthersPage> {
                     width: 7,
                   ),
                   GestureDetector(
-                    onTap: () {
+                    onTap: (){
+                        var provider = Provider.of<FarmProvider>(context, listen:false);
+                        //provider.items.clear();
+                     // provider.items.addAll(provider.bisonList);
+                      //print(provider.items[1].farmersStocks);
                       setState(() {
 
                         bison = duck = elk = goose = lamb = rabbit = turkey = honey = "Bison";
@@ -112,7 +116,9 @@ class _OthersPageState extends State<OthersPage> {
                         rabbitColor = Colors.black12;
                         turkeyColor = Colors.black12;
                         honeyClor = Colors.black12;
+
                       });
+                    
                     },
                     child: Container(
                       width: 78,
@@ -398,7 +404,8 @@ class _OthersPageState extends State<OthersPage> {
                 height: 15,
               ),
               Consumer<FarmProvider>(
-                builder: (_, provider, __) => provider.items.isEmpty
+                
+                builder: (context, provider, __) => provider.items.isEmpty
                     ? Padding(
                         padding: const EdgeInsets.only(top: 150),
                         child: Center(

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class BuildStockList extends StatelessWidget {
@@ -43,11 +41,11 @@ class BuildStockList extends StatelessWidget {
   }
 
   
-  Color generateRandomColor2() {
-    Random random = Random();
-    // Pick a random number in the range [0.0, 1.0)
-    double randomDouble = random.nextDouble();
+  // Color generateRandomColor2() {
+  //   Random random = Random();
+  //   // Pick a random number in the range [0.0, 1.0)
+  //   double randomDouble = random.nextDouble();
 
-    return Color((randomDouble * 0xFFFFFF).toInt()).withOpacity(1.0);
-  }
+  //   return Color((randomDouble * 0xFFFFFF).toInt()).withOpacity(1.0);
+  // }
 }

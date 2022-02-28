@@ -404,36 +404,4 @@ class _AllPageState extends State<AllPage> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  // Widget _buildBody(List? data) {
-  //   //List data = ['biscuits', 'cakes', 'drinks', 'snacks', 'food'];
-
-  //   return Container(
-  //     //color: Colors.yellow[100],
-  //     //height: 60,
-  //     // width: 300,
-  //     child: Wrap(
-  //       direction: Axis.horizontal,
-  //       children: data!.map((item) {
-  //         return Padding(
-  //             padding: const EdgeInsets.all(3.0),
-  //             child: Column(
-  //               children: [
-  //                 CircleAvatar(
-  //                   radius: 27,
-  //                   backgroundColor: generateRandomColor2(),
-  //                   child: Image.asset(
-  //                     "assets/images/${item.toLowerCase()}.png",
-  //                     width: 40,
-  //                     height: 40,
-  //                   ),
-  //                 ),
-  //                 Text(
-  //                    item)
-  //               ],
-  //             ));
-
-  //       }).toList(),
-  //     ),
-  //   );
-  // }
 }
