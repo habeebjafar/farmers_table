@@ -1,7 +1,9 @@
 import 'package:farmerstable/bloc/farm_provider.dart';
 import 'package:farmerstable/pages/product_details_page.dart';
 import 'package:farmerstable/widgets/build_stock_list.dart';
+import 'package:farmerstable/widgets/network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,13 +16,50 @@ class StockWidget extends StatefulWidget {
 }
 
 class _StockWidgetState extends State<StockWidget> {
+
+  bool? internetStatus;
+
+
+  @override
+  void initState(){
+    super.initState();
+    checkData();   
+
+  }
+
+  checkData() async{
+    bool hasConnn = await InternetConnectionChecker().hasConnection;
+    if (hasConnn == true) {
+      // print('YAY! Free cute dog pics!');
+     // return true;
+     setState(() {
+       internetStatus = true;
+     });
+     var prov =  Provider.of<FarmProvider>(context, listen: false);
+     await prov.getAllFarmersStocks();
+     
+    }else{
+        setState(() {
+       internetStatus = false;
+     });
+    }
+    
+  }
+
+  @override
+void dispose() {
+  //listener.cancel();
+  super.dispose();
+}
+
   
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Consumer<FarmProvider>(
+          child:   internetStatus == false ? NetworkImageWidget()
+               : Consumer<FarmProvider>(
             builder: (_, provider, __) => provider.items.isEmpty
                 ? Padding(
                     padding: const EdgeInsets.only(top: 150),

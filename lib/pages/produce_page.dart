@@ -1,7 +1,9 @@
 import 'package:farmerstable/bloc/farm_provider.dart';
 import 'package:farmerstable/pages/product_details_page.dart';
 import 'package:farmerstable/widgets/build_stock_list.dart';
+import 'package:farmerstable/widgets/network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,6 +15,36 @@ class ProducePage extends StatefulWidget {
 }
 
 class _ProducePageState extends State<ProducePage> {
+
+
+  
+    bool? internetStatus;
+
+
+  @override
+  void initState(){
+    super.initState();
+    checkData();   
+
+  }
+
+  checkData() async{
+    bool hasConnn = await InternetConnectionChecker().hasConnection;
+    if (hasConnn == true) {
+
+     setState(() {
+       internetStatus = true;
+     });
+     var prov =  Provider.of<FarmProvider>(context, listen: false);
+     await prov.getAllFarmersStocks();
+     
+    }else{
+        setState(() {
+       internetStatus = false;
+     });
+    }
+    
+  }
   
   String selectedStock = "Fruits";
 
@@ -116,7 +148,8 @@ class _ProducePageState extends State<ProducePage> {
             SizedBox(
               height: 15,
             ),
-              Consumer<FarmProvider>(
+              internetStatus == false ? NetworkImageWidget()
+               : Consumer<FarmProvider>(
                 builder: (_, provider, __) => provider.items.isEmpty
                     ? Padding(
                         padding: const EdgeInsets.only(top: 150),

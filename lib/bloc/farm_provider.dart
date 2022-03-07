@@ -5,10 +5,11 @@ import 'package:farmerstable/services/farmers_stocks_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
+
 //import 'package:permission_handler/permission_handler.dart';
 
 class FarmProvider with ChangeNotifier {
-
 //   checkPermission() async{
 //     if (await Permission.location.request().isGranted) {
 //   // Either the permission was already granted before or the user just granted it.
@@ -19,18 +20,14 @@ class FarmProvider with ChangeNotifier {
 // if (await Permission.location.isDenied) {
 //    Permission.location.request();
 //   // Either the permission was already granted before or the user just granted it.
-  
+
 // }
 //   }
-List<FarmersStockModel> items = [];
+  List<FarmersStockModel> items = [];
 //List<FarmersStockModel> duplicateItems  = [];
-bool? noDataFound;
+  bool? noDataFound;
 
-
-
-  
-
- bool  isFarmAdded = false;
+  bool isFarmAdded = false;
 
   FarmersStocksService _service = FarmersStocksService();
   List<FarmersStockModel> farmersStocksList = [];
@@ -51,24 +48,23 @@ bool? noDataFound;
   List<FarmersStockModel> rabbitList = [];
   List<FarmersStockModel> turkeyList = [];
   List<FarmersStockModel> honeyList = [];
-  
 
   List animals = [];
   List deliveryMethods = [];
   bool marketSellerValue = false;
 
   Future<bool> saveFarmersStocks(
-      farmName,
-      fullAddress,
-      firstName,
-      lastName,
-      phoneNumber,
-      email,
-      website,
-      ) async {
-         List<Location> locations = await locationFromAddress(fullAddress);
-         
-              //Location newLoc = locations[0];
+    farmName,
+    fullAddress,
+    firstName,
+    lastName,
+    phoneNumber,
+    email,
+    website,
+  ) async {
+    List<Location> locations = await locationFromAddress(fullAddress);
+
+    //Location newLoc = locations[0];
     String deliveryMethod = deliveryMethods.toString();
     String farmersStocks = animals.toString();
 
@@ -85,11 +81,12 @@ bool? noDataFound;
     model.marketSeller = "1";
     model.latitude = locations[0].latitude.toString();
     model.longitude = locations[0].longitude.toString();
-    model.distance = _getDistance(locations[0].latitude, locations[0].longitude);
+    model.distance =
+        _getDistance(locations[0].latitude, locations[0].longitude);
 
     var response = await _service.addFarmersStocks(model);
     var result = json.decode(response.body);
-     //var result = await json.decode(json.encode(response.body));  
+    //var result = await json.decode(json.encode(response.body));
 
     notifyListeners();
 
@@ -98,32 +95,43 @@ bool? noDataFound;
       isFarmAdded = true;
       return true;
     }
-     print("for failed attempt $result");
+    print("for failed attempt $result");
     return false;
   }
 
-   _getCurrentPositionofUsers() async{
-     LocationPermission permission = await Geolocator.checkPermission();
-    
-     await _geCurrentGeoLocationPosition();
-      if(permission !=  LocationPermission.denied){
-    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-      }
+  _getCurrentPositionofUsers() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+
+    await _geCurrentGeoLocationPosition();
+    if (permission != LocationPermission.denied) {
+      return await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+    }
+  }
+
+   checkConn() async {
+    bool hasConnn = await InternetConnectionChecker().hasConnection;
+    if (hasConnn == true) {
+      // print('YAY! Free cute dog pics!');
+      return true;
+    } 
+    return false;
+    // else {
+    //   print('No internet :( Reason:');
+    //   // print(InternetConnectionChecker().lastTryResults);
+    // }
     
   }
 
-
-
   Future<List<FarmersStockModel>> getAllFarmersStocks() async {
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    LocationPermission permissionEnabled = await Geolocator.requestPermission();
 
-     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-     LocationPermission permissionEnabled = await Geolocator.requestPermission();
-     
-      Position? position; 
-     if(serviceEnabled){
-     position = await _getCurrentPositionofUsers();
-     }
-   
+    Position? position;
+    if (serviceEnabled) {
+      position = await _getCurrentPositionofUsers();
+    }
+
     //double distanceInMeters = Geolocator.distanceBetween(position.latitude, position.longitude, farmLat, farmLog);
     // double userDistanceInMiles = distanceInMeters/1609.344;
     items.clear();
@@ -147,13 +155,11 @@ bool? noDataFound;
     turkeyList.clear();
     honeyList.clear();
 
-   
     var response = await _service.getAllFarmersStocks();
-    //var result = await json.decode(json.encode(response.body));  
+    //var result = await json.decode(json.encode(response.body));
 
-    var result = await json.decode(response.body);  
+    var result = await json.decode(response.body);
     print("hello print thsis $result");
-  
 
     result['data'].forEach((data) {
       var model = FarmersStockModel();
@@ -170,161 +176,146 @@ bool? noDataFound;
       model.marketSeller = data['market_seller'];
       model.latitude = data['latitude'];
       model.longitude = data['longitude'];
-      model.distance = permissionEnabled != LocationPermission.denied &&  serviceEnabled ? (Geolocator.distanceBetween(position!.latitude, position.longitude, double.parse(data['latitude']), 
-         double.parse(data['longitude']))/1609.344).floor() :
-      double.parse(data['distance']).floor();
+      model.distance =
+          permissionEnabled != LocationPermission.denied && serviceEnabled
+              ? (Geolocator.distanceBetween(
+                          position!.latitude,
+                          position.longitude,
+                          double.parse(data['latitude']),
+                          double.parse(data['longitude'])) /
+                      1609.344)
+                  .floor()
+              : double.parse(data['distance']).floor();
 
-       var farmersStocks = model.farmersStocks!.substring(1, model.farmersStocks!.length - 1);
+      var farmersStocks =
+          model.farmersStocks!.substring(1, model.farmersStocks!.length - 1);
 
-       var realFarmersStocksList = farmersStocks.split(', ');
-       
-       model.farmersStocksList = realFarmersStocksList;
+      var realFarmersStocksList = farmersStocks.split(', ');
+
+      model.farmersStocksList = realFarmersStocksList;
 
       farmersStocksList.add(model);
 
-      if(model.farmersStocks!.contains("Beef")){
+      if (model.farmersStocks!.contains("Beef")) {
         beefList.add(model);
-
       }
 
-      if(model.farmersStocks!.contains("Chicken")){
+      if (model.farmersStocks!.contains("Chicken")) {
         chickenList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Fruits") && model.farmersStocks!.contains("Vegetables")){
+      if (model.farmersStocks!.contains("Fruits") &&
+          model.farmersStocks!.contains("Vegetables")) {
         produceList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Fruits")){
+      if (model.farmersStocks!.contains("Fruits")) {
         fruitsList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Vegetables")){
+      if (model.farmersStocks!.contains("Vegetables")) {
         vegetablesList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Dairy") && model.farmersStocks!.contains("Eggs")){
+      if (model.farmersStocks!.contains("Dairy") &&
+          model.farmersStocks!.contains("Eggs")) {
         milkAndEggsList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Dairy")){
+      if (model.farmersStocks!.contains("Dairy")) {
         milkList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Eggs")){
+      if (model.farmersStocks!.contains("Eggs")) {
         eggsList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Seafood")){
+      if (model.farmersStocks!.contains("Seafood")) {
         seafoodList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Bison")){
+      if (model.farmersStocks!.contains("Bison")) {
         bisonList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Duck")){
+      if (model.farmersStocks!.contains("Duck")) {
         duckList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Elk")){
+      if (model.farmersStocks!.contains("Elk")) {
         elkList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Goose")){
+      if (model.farmersStocks!.contains("Goose")) {
         gooseList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Lamb")){
+      if (model.farmersStocks!.contains("Lamb")) {
         lambList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Rabbit")){
+      if (model.farmersStocks!.contains("Rabbit")) {
         rabbitList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Turkey")){
+      if (model.farmersStocks!.contains("Turkey")) {
         turkeyList.add(model);
-
       }
 
-       if(model.farmersStocks!.contains("Honey")){
+      if (model.farmersStocks!.contains("Honey")) {
         honeyList.add(model);
-
       }
-
-      
-
     });
 
-    farmersStocksList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    beefList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    chickenList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    produceList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    fruitsList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    vegetablesList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    milkAndEggsList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    milkList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    eggsList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    seafoodList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    bisonList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    duckList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    elkList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    gooseList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    lambList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    rabbitList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    turkeyList.sort((a,b) => a.distance!.compareTo(b.distance!));
-    honeyList.sort((a,b) => a.distance!.compareTo(b.distance!));
+    farmersStocksList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    beefList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    chickenList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    produceList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    fruitsList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    vegetablesList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    milkAndEggsList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    milkList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    eggsList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    seafoodList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    bisonList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    duckList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    elkList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    gooseList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    lambList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    rabbitList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    turkeyList.sort((a, b) => a.distance!.compareTo(b.distance!));
+    honeyList.sort((a, b) => a.distance!.compareTo(b.distance!));
 
-    
-     items.addAll(farmersStocksList);
+    items.addAll(farmersStocksList);
 
-     //!serviceEnabled ? distance : _getUserCurrentDistance(data['latitude'], data['longitude']) ;
+    //!serviceEnabled ? distance : _getUserCurrentDistance(data['latitude'], data['longitude']) ;
 
     //farmersStocksList.sort((a,b) => a.distance!.compareTo(b.distance!));
-
-   
 
     notifyListeners();
 
     return farmersStocksList;
   }
 
-  int _getDistance(double farmLat, double farmLog){
-    double distanceInMeters = Geolocator.distanceBetween(40.6180343, -103.2277387, farmLat, farmLog);
-     double userDistanceInMiles = distanceInMeters/1609.344;
+  int _getDistance(double farmLat, double farmLog) {
+    double distanceInMeters =
+        Geolocator.distanceBetween(40.6180343, -103.2277387, farmLat, farmLog);
+    double userDistanceInMiles = distanceInMeters / 1609.344;
     return userDistanceInMiles.toInt();
   }
 
-
   //  _getUserCurrentDistance(double farmLat, double farmLog) async{
-     
-   
+
   //   Position? position = await _geCurrentGeoLocationPosition();
   //   double distanceInMeters = Geolocator.distanceBetween(position!.latitude, position.longitude, farmLat, farmLog);
   //    double userDistanceInMiles = distanceInMeters/1609.344;
   //   return userDistanceInMiles.ceil();
   //   //return userDistanceInMiles.toString();
 
-
   // }
 
-   Future<void> _geCurrentGeoLocationPosition() async {
-   // bool serviceEnabled;
+  Future<void> _geCurrentGeoLocationPosition() async {
+    // bool serviceEnabled;
     LocationPermission permission;
     // Test if location services are enabled.
     // serviceEnabled = await Geolocator.isLocationServiceEnabled();
@@ -335,7 +326,6 @@ bool? noDataFound;
     //   await Geolocator.openLocationSettings();
     //   return Future.error('Location services are disabled.');
     // }
-  
 
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
@@ -358,50 +348,43 @@ bool? noDataFound;
     // When we reach here, permissions are granted and we can
     // continue accessing the position of the device.
 
-
     //return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
   }
 
-
-   void filterSearchResults(String query) {
+  void filterSearchResults(String query) {
     List<FarmersStockModel> dummySearchList = [];
     dummySearchList.addAll(farmersStocksList);
-    if(query.isNotEmpty) {
+    if (query.isNotEmpty) {
       List<FarmersStockModel> dummyListData = [];
       dummySearchList.forEach((item) {
-        if(item.fullAdrees.toString().toLowerCase().contains(query) ||
-         item.farmName.toString().toLowerCase().contains(query) ) {
+        if (item.fullAdrees.toString().toLowerCase().contains(query) ||
+            item.farmName.toString().toLowerCase().contains(query)) {
           dummyListData.add(item);
         }
       });
-     
-        items.clear();
-        items.addAll(dummyListData);
-        if(items.length == 0 ){
-          noDataFound = true;
-        }else{
-          noDataFound = false;
-        }
 
-        notifyListeners();
-    
+      items.clear();
+      items.addAll(dummyListData);
+      if (items.length == 0) {
+        noDataFound = true;
+      } else {
+        noDataFound = false;
+      }
+
+      notifyListeners();
+
       return;
     } else {
-      
-        items.clear();
-        items.addAll(farmersStocksList);
-        if(items.length == 0 ){
-          noDataFound = true;
-        }else{
-          noDataFound = false;
-        }
-     notifyListeners();
+      items.clear();
+      items.addAll(farmersStocksList);
+      if (items.length == 0) {
+        noDataFound = true;
+      } else {
+        noDataFound = false;
+      }
+      notifyListeners();
     }
 
     notifyListeners();
-
   }
-
-
-
 }
